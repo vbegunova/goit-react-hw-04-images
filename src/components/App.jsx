@@ -23,6 +23,7 @@ export const App = () => {
 
   useEffect(() => {
     if (query === '') {
+      setData('');
       return;
     }
     if (abortCtrl.current) {
@@ -79,15 +80,12 @@ export const App = () => {
     });
   };
 
-  const handleSubmit = (input, isError) => {
-    if (isError) {
-      setQuery('');
-      setError(input);
-      setData([]);
-      return;
+  const handleSubmit = query => {
+    if (query === '') {
+      setError('Enter a query!');
     }
     setPage(1);
-    setQuery(input);
+    setQuery(query);
   };
 
   const openModal = image => {

@@ -17,15 +17,9 @@ const schema = yup.object().shape({
   query: yup.string(),
 });
 
-const Searchbar = ({onSubmit}) => {
+const Searchbar = ({ onSubmit }) => {
   const handleSubmit = (values, { resetForm }) => {
-    const query = values.query.trim();
-
-    if (query === '') {
-      onSubmit('Enter a query!', true);
-      return;
-    }
-
+    const query = values.query.trim().toLowerCase();
     onSubmit(query);
     resetForm();
   };
@@ -58,7 +52,6 @@ const Searchbar = ({onSubmit}) => {
 };
 
 export default Searchbar;
-
 
 // import { Component } from 'react';
 // import {
