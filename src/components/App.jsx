@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { fetchItems } from 'services/api';
 import Searchbar from './Searchbar';
 import ImageGallery from './ImageGallery';
