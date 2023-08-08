@@ -32,6 +32,9 @@ export const App = () => {
 
     const fetchData = async () => {
       try {
+        if (page === 1) {
+          setData([]);
+        }
         setIsLoading(true);
         setError(null);
 
@@ -79,13 +82,12 @@ export const App = () => {
   const handleSubmit = (input, isError) => {
     if (isError) {
       setQuery('');
-      setData([]);
       setError(input);
+      setData([]);
       return;
     }
     setPage(1);
     setQuery(input);
-    setData([]);
   };
 
   const openModal = image => {
