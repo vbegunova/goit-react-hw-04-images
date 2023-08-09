@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useLayoutEffect, useState, useEffect, useRef } from 'react';
 import { fetchItems } from 'services/api';
 import Searchbar from './Searchbar';
 import ImageGallery from './ImageGallery';
@@ -20,6 +20,15 @@ export const App = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const abortCtrl = useRef();
+
+  useLayoutEffect(() => {
+    if (page !== 1) {
+      window.scrollBy({
+        top: 260 * 3,
+        behavior: 'smooth',
+      });
+    }
+  });
 
   useEffect(() => {
     if (query === '') {
@@ -44,6 +53,7 @@ export const App = () => {
           page,
           abortCtrl: abortCtrl.current,
         });
+        
         if (fetchedData.totalHits === 0) {
           setError('Please, enter a correct query.');
           return;
@@ -52,13 +62,6 @@ export const App = () => {
         const items = getNormilizedItem(fetchedData.hits);
         setData(prevState => [...prevState, ...items]);
         setTotalPages(Math.ceil(fetchedData.totalHits / 12));
-
-        // if (page !== 1) {
-        //   window.scrollBy({
-        //     top: 300 * 3,
-        //     behavior: 'smooth',
-        //   });
-        // }
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
           setError(ERR_MESSAGE);
@@ -95,6 +98,7 @@ export const App = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setImage('');
   };
 
   const verify = totalPages !== page && !error;
