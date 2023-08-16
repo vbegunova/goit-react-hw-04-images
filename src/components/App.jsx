@@ -53,7 +53,7 @@ export const App = () => {
           page,
           abortCtrl: abortCtrl.current,
         });
-        
+
         if (fetchedData.totalHits === 0) {
           setError('Please, enter a correct query.');
           return;
@@ -107,7 +107,7 @@ export const App = () => {
     <>
       <Searchbar onSubmit={handleSubmit} />
       {data[0] && <ImageGallery items={data} openModal={openModal} />}
-      {data[0] && verify && (
+      {data[0] && verify && !isLoading && (
         <Button handleClick={() => setPage(prevState => prevState + 1)} />
       )}
       {isLoading && <Loader />}
